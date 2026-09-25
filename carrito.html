@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito | Mundo Sport</title>
+    <meta name="description" content="Revisa tu carrito e inicia sesión en Mundo Sport.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="inicio.html" aria-label="Mundo Sport, inicio">
+            <span class="brand-mark" aria-hidden="true">MS</span>
+            <span>Mundo Sport</span>
+        </a>
+        <nav aria-label="Navegación principal">
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="coleccion.html">Colección</a></li>
+                <li><a href="carrito.html" aria-current="page">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="cart-layout">
+        <section class="cart-content" aria-labelledby="cart-title">
+            <p class="eyebrow">Tu compra</p>
+            <h1 id="cart-title">Carrito</h1>
+            <div class="empty-cart">
+                <p>Tu carrito está vacío por ahora.</p>
+                <a class="text-button" href="coleccion.html">Ver colección <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+
+        <section class="login-panel" aria-labelledby="login-title">
+            <p class="eyebrow">Mundo Sport Club</p>
+            <h2 id="login-title">Inicia sesión</h2>
+            <p class="form-intro">Accede a tu cuenta para continuar con tu compra.</p>
+            <form>
+                <div class="form-field">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email">
+                </div>
+                <div class="form-field">
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password" type="password" placeholder="Tu contraseña" autocomplete="current-password">
+                </div>
+                <button class="submit-button" type="button" disabled>Entrar <span aria-hidden="true">→</span></button>
+            </form>
+            <p class="demo-note">Acceso de demostración · Cuenta no conectada</p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Mundo Sport · Hecho para moverte</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,12 @@
+MUNDO SPORT - PROYECTO PARA VISUAL STUDIO CODE
+
+1. Descarga y descomprime esta carpeta.
+2. Abre Visual Studio Code.
+3. Selecciona Archivo > Abrir carpeta y abre "Mundo_Sport_VSCode".
+4. Abre "inicio.html".
+5. Puedes ejecutarlo con Live Server si tienes esa extensión instalada,
+   o abrir el archivo directamente en el navegador.
+
+IMPORTANTE:
+- Mantén juntos inicio.html, coleccion.html, carrito.html y style.css.
+- Las imágenes de la colección usan enlaces de Internet, por lo que necesitan conexión.

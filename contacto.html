@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contacto | Mundo Sport</title>
+    <meta name="description" content="Ponte en contacto con el equipo de Mundo Sport.">
+    <meta name="keywords" content="ropa deportiva, entrenamiento, fitness, running, yoga, deportes">
+    <meta name="author" content="Alex Dussan">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="inicio.html" aria-label="Mundo Sport, inicio">
+            <span class="brand-mark" aria-hidden="true">MS</span>
+            <span>Mundo Sport</span>
+        </a>
+        <nav aria-label="Navegación principal">
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="coleccion.html">Colección</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+                <li><a href="carrito.html">Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <div class="page-heading">
+            <p class="eyebrow">Hablemos</p>
+            <h1>Contacto</h1>
+            <p>Preguntas, pedidos especiales o simplemente saludarnos. Estamos para ti.</p>
+        </div>
+
+        <div class="contact-layout">
+            <section class="contact-form-col" aria-labelledby="contact-form-title">
+                <h2 id="contact-form-title" class="about-title">Envíanos un mensaje</h2>
+                <p class="about-copy">Respondemos todos los mensajes en menos de 24 horas hábiles.</p>
+                <form class="contact-form" action="#" method="post" novalidate>
+                    <div class="form-field">
+                        <label for="nombre">Nombre completo</label>
+                        <input id="nombre" name="nombre" type="text"
+                               placeholder="Tu nombre"
+                               autocomplete="name"
+                               required
+                               minlength="2"
+                               pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"
+                               title="Solo se permiten letras y espacios">
+                        <span class="field-error" aria-live="polite">Solo se permiten letras y espacios, mínimo 2 caracteres.</span>
+                    </div>
+                    <div class="form-field">
+                        <label for="contact-email">Correo electrónico</label>
+                        <input id="contact-email" name="email" type="email"
+                               placeholder="tu@correo.com"
+                               autocomplete="email"
+                               required
+                               pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                               title="Ingresa un correo válido con @">
+                        <span class="field-error" aria-live="polite">Ingresa un correo válido (debe incluir @ y un dominio).</span>
+                    </div>
+                    <div class="form-field">
+                        <label for="telefono">Teléfono <span class="field-optional">(opcional)</span></label>
+                        <input id="telefono" name="telefono" type="tel"
+                               placeholder="+57 300 000 0000"
+                               autocomplete="tel"
+                               pattern="[\+]?[\d\s\-]{7,15}"
+                               title="Solo se permiten números, espacios, guiones y +">
+                        <span class="field-error" aria-live="polite">Solo se permiten números, espacios, guiones y +. Mínimo 7 dígitos.</span>
+                    </div>
+                    <div class="form-field">
+                        <label for="asunto">Asunto</label>
+                        <input id="asunto" name="asunto" type="text"
+                               placeholder="¿En qué podemos ayudarte?"
+                               required
+                               minlength="3"
+                               title="Escribe el asunto de tu mensaje">
+                        <span class="field-error" aria-live="polite">El asunto es obligatorio, mínimo 3 caracteres.</span>
+                    </div>
+                    <div class="form-field">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" name="mensaje" class="contact-textarea" rows="5"
+                                  placeholder="Cuéntanos más..."
+                                  required
+                                  minlength="10"
+                                  title="Escribe tu mensaje, mínimo 10 caracteres"></textarea>
+                        <span class="field-error" aria-live="polite">El mensaje debe tener al menos 10 caracteres.</span>
+                    </div>
+                    <button class="submit-button" type="submit">
+                        Enviar mensaje
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+            </section>
+
+            <aside class="contact-info-col" aria-label="Información de contacto">
+                <div class="contact-info-block">
+                    <p class="eyebrow">Dirección</p>
+                    <h3 class="contact-info-title">Encuéntranos</h3>
+                    <p class="about-copy">Av. El Deporte 1240, Local 3<br>Santiago, Chile</p>
+                </div>
+                <div class="contact-info-block">
+                    <p class="eyebrow">Horario</p>
+                    <h3 class="contact-info-title">Atención</h3>
+                    <p class="about-copy">Lunes a viernes: 9:00 – 18:00<br>Sábados: 10:00 – 14:00</p>
+                </div>
+                <div class="contact-info-block">
+                    <p class="eyebrow">Comunicación</p>
+                    <h3 class="contact-info-title">Canales directos</h3>
+                    <ul class="contact-channels">
+                        <li><span class="channel-label">Email</span> alexdussan918@gmail.com</li>
+                        <li><span class="channel-label">Teléfono</span> +57 320 966 8713</li>
+                        <li><span class="channel-label">Instagram</span> @mundosport</li>
+                    </ul>
+                </div>
+                <div class="contact-info-block">
+                    <img class="contact-map-img" src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=700&q=80" alt="Mapa referencial de ubicación">
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark" aria-hidden="true">MS</span>
+                <span class="footer-brand-name">Mundo Sport</span>
+                <p class="footer-tagline">Ropa deportiva para moverte a tu manera.</p>
+            </div>
+            <nav class="footer-nav" aria-label="Enlaces del sitio">
+                <p class="footer-nav-title">Sitio</p>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="coleccion.html">Colección</a></li>
+                    <li><a href="ofertas.html">Ofertas</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav" aria-label="Legal">
+                <p class="footer-nav-title">Legal</p>
+                <ul>
+                    <li><a href="terminos.html">Términos y condiciones</a></li>
+                    <li><a href="privacidad.html">Política de privacidad</a></li>
+                    <li><a href="cookies.html">Política de cookies</a></li>
+                    <li><a href="devoluciones.html">Devoluciones y cambios</a></li>
+                </ul>
+            </nav>
+            <div class="footer-contact">
+                <p class="footer-nav-title">Contacto</p>
+                <p>alexdussan918@gmail.com</p>
+                <p>+57 320 966 8713</p>
+                <p>Carrera 3 Sur #2-30</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Mundo Sport · Hecho para moverte</p>
+            <p class="footer-legal-links">
+                <a href="terminos.html">Términos</a> ·
+                <a href="privacidad.html">Privacidad</a> ·
+                <a href="cookies.html">Cookies</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

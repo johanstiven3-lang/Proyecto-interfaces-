@@ -9,4 +9,4 @@ MUNDO SPORT - PROYECTO PARA VISUAL STUDIO CODE
 
 IMPORTANTE:
 - Mantén juntos inicio.html, coleccion.html, carrito.html y style.css.
-- Las imágenes de la colección usan enlaces de Internet, por lo que necesitan conexión.
+- Las imágenes de la colección usan enlaces de Internet, por lo que necesitan conexión

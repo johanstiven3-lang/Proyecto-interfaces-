@@ -1,6 +1,5 @@
 let espesorMuro = 20;
 
-/* ── Utilitarios ── */
 function fmt(n) {
   if (n === 0) return '0';
   if (Number.isInteger(n)) return n.toString();
@@ -36,7 +35,6 @@ function calcMuro() {
 
   const sup = largo * alto;
 
-  // Rendimientos por m² según espesor
   let cemento, arena, ladrillos;
   if (espesorMuro === 20) {
     cemento   = sup * 15.2;
@@ -129,7 +127,6 @@ function calcContra() {
 
   const vol = esp * ancho * largo;
 
-  // Rendimientos por m³ de hormigón magro
   const cemento = vol * 105;
   const arena   = vol * 0.45;
   const piedra  = vol * 0.9;

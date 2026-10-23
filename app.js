@@ -110,23 +110,20 @@ function saveHistory(type, arr) {
   localStorage.setItem(storageKey(type), JSON.stringify(arr));
 }
 
-/* Crear – agrega entrada al inicio */
 function addToHistory(type, label, detail) {
   const h = getHistory(type);
   h.unshift({ id: Date.now(), label, detail, ts: new Date().toLocaleString('es-CO') });
-  if (h.length > 20) h.pop(); // límite de 20 entradas
+  if (h.length > 20) h.pop();
   saveHistory(type, h);
   renderHistory(type);
 }
 
-/* Eliminar por id */
 function deleteFromHistory(type, id) {
   const h = getHistory(type).filter(x => x.id !== id);
   saveHistory(type, h);
   renderHistory(type);
 }
 
-/* Leer y renderizar */
 function renderHistory(type) {
   const container = document.getElementById(`hist-${type}`);
   const h = getHistory(type);

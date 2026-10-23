@@ -1,14 +1,6 @@
-/* ══════════════════════════════════════════════
-   CalcObra – app.js
-   Autenticación, navegación e historial
-══════════════════════════════════════════════ */
 
-/* ── Estado global ── */
 let currentUser = null;
 
-/* ══════════════════════════════════════════════
-   AUTH
-══════════════════════════════════════════════ */
 function showRegister() {
   document.getElementById('login-form').style.display = 'none';
   document.getElementById('register-form').style.display = 'block';
@@ -89,17 +81,12 @@ function doLogout() {
   document.getElementById('login-pass').value = '';
   showLogin();
 }
-
-/* Enter en los formularios */
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
   const loginVisible = document.getElementById('login-form').style.display !== 'none';
   loginVisible ? doLogin() : doRegister();
 });
 
-/* ══════════════════════════════════════════════
-   NAVEGACIÓN
-══════════════════════════════════════════════ */
 function switchCalc(idx) {
   document.querySelectorAll('.calc-panel').forEach((p, i) => {
     p.classList.toggle('active', i === idx);
@@ -109,9 +96,6 @@ function switchCalc(idx) {
   });
 }
 
-/* ══════════════════════════════════════════════
-   HISTORIAL (CRUD en localStorage)
-══════════════════════════════════════════════ */
 const CALC_TYPES = ['muro', 'viga', 'col', 'contra', 'techo', 'piso', 'pintura'];
 
 function storageKey(type) {

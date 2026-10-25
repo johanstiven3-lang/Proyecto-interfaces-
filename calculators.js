@@ -1,20 +1,11 @@
-'use strict';
-/* ══════════════════════════════════════════════════════════════
-   CalcObra — Lógica de calculadoras
-   Cada función recopila los inputs, los envía al backend REST
-   (via saveCalc definido en app.js) y muestra el resultado.
-   ══════════════════════════════════════════════════════════════ */
-
 let espesorMuro = 20;
 
-/* ── Formato numérico ──────────────────────────────────────── */
 function fmt(n) {
   if (n === 0) return '0';
   if (Number.isInteger(n)) return n.toString();
   return parseFloat(n.toFixed(4)).toString();
 }
 
-/* ── Renderizar tabla de materiales ───────────────────────── */
 function buildRows(materials) {
   return materials
     .map(([mat, qty, unit]) =>
@@ -26,19 +17,16 @@ function buildRows(materials) {
     ).join('');
 }
 
-/* ── Mostrar caja de resultado ────────────────────────────── */
 function showResult(id) {
   document.getElementById(id).classList.add('visible');
 }
 
-/* ── Toggle espesor de muro ───────────────────────────────── */
 function setEspesor(v) {
   espesorMuro = v;
   document.getElementById('esp-20').classList.toggle('active', v === 20);
   document.getElementById('esp-30').classList.toggle('active', v === 30);
 }
 
-/* ── Helper: estado de carga en botón ────────────────────── */
 function setCalcLoading(panelId, loading) {
   const btn = document.querySelector('#' + panelId + ' .btn-calc');
   if (!btn) return;
@@ -51,9 +39,6 @@ function setCalcLoading(panelId, loading) {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   1. MURO DE LADRILLO
-   ══════════════════════════════════════════════════════════════ */
 async function calcMuro() {
   const largo = parseFloat(document.getElementById('muro-largo').value) || 0;
   const alto  = parseFloat(document.getElementById('muro-alto').value)  || 0;
@@ -72,10 +57,6 @@ async function calcMuro() {
     setCalcLoading('panel-0', false);
   }
 }
-
-/* ══════════════════════════════════════════════════════════════
-   2. VIGA DE HORMIGÓN
-   ══════════════════════════════════════════════════════════════ */
 async function calcViga() {
   const largo = parseFloat(document.getElementById('viga-largo').value) || 0;
   if (largo <= 0) return alert('Ingresa un valor válido mayor a 0.');
@@ -92,9 +73,6 @@ async function calcViga() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   3. COLUMNAS DE HORMIGÓN
-   ══════════════════════════════════════════════════════════════ */
 async function calcColumna() {
   const largo = parseFloat(document.getElementById('col-largo').value) || 0;
   if (largo <= 0) return alert('Ingresa un valor válido mayor a 0.');
@@ -111,9 +89,6 @@ async function calcColumna() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   4. CONTRAPISOS
-   ══════════════════════════════════════════════════════════════ */
 async function calcContra() {
   const esp   = parseFloat(document.getElementById('contra-esp').value)   || 0;
   const ancho = parseFloat(document.getElementById('contra-ancho').value) || 0;
@@ -134,9 +109,6 @@ async function calcContra() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   5. TECHO
-   ══════════════════════════════════════════════════════════════ */
 async function calcTecho() {
   const esp   = parseFloat(document.getElementById('techo-esp').value)   || 0;
   const ancho = parseFloat(document.getElementById('techo-ancho').value) || 0;
@@ -156,10 +128,7 @@ async function calcTecho() {
     setCalcLoading('panel-4', false);
   }
 }
-
-/* ══════════════════════════════════════════════════════════════
-   6. PISOS
-   ══════════════════════════════════════════════════════════════ */
+}
 async function calcPiso() {
   const ancho = parseFloat(document.getElementById('piso-ancho').value) || 0;
   const largo = parseFloat(document.getElementById('piso-largo').value) || 0;
@@ -180,9 +149,6 @@ async function calcPiso() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   7. PINTURA
-   ══════════════════════════════════════════════════════════════ */
 async function calcPintura() {
   const sup = parseFloat(document.getElementById('pintura-sup').value) || 0;
   if (sup <= 0) return alert('Ingresa un valor válido mayor a 0.');

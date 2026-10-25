@@ -1,0 +1,121 @@
+{
+  "users": [
+    {
+      "id": "8f9ea70f-989c-4421-b74c-a13e89f4b335",
+      "username": "johan",
+      "password": "a6a583a40a246608c10106586cf814c6:ea7f352fad55c23132a5fec5eaaf119dd1f114856a488b339fac4561c0dd0d2105a8f6782f5cb4fa510c75516651662d98c2a3a8b2f51c94c0d1fba4ca991562",
+      "created": 1792967926203
+    }
+  ],
+  "calculations": [
+    {
+      "id": "bf889662-501d-4cd2-9e79-adfda189d275",
+      "userId": "8f9ea70f-989c-4421-b74c-a13e89f4b335",
+      "type": "muro",
+      "inputs": {
+        "espesor": 20,
+        "largo": 1,
+        "alto": 1
+      },
+      "label": "Muro 20cm — 1m × 1m",
+      "detail": "Sup: 1 m² | Cem: 15.2 kg | Ladrillos: 120",
+      "result": {
+        "sup": 1,
+        "materials": [
+          [
+            "Cemento",
+            15.2,
+            "kg"
+          ],
+          [
+            "Arena",
+            0.115,
+            "m³"
+          ],
+          [
+            "Ladrillos",
+            120,
+            "unidades"
+          ]
+        ]
+      },
+      "createdAt": 1792967935159,
+      "updatedAt": 1792967935159
+    },
+    {
+      "id": "f0c2cb95-8206-4b84-bfc3-03099f893474",
+      "userId": "8f9ea70f-989c-4421-b74c-a13e89f4b335",
+      "type": "col",
+      "inputs": {
+        "largo": 1
+      },
+      "label": "Columna — 1 m",
+      "detail": "Cem: 7.5 kg | H10: 6 m",
+      "result": {
+        "materials": [
+          [
+            "Cemento",
+            7.5,
+            "kg"
+          ],
+          [
+            "Arena",
+            0.016,
+            "m³"
+          ],
+          [
+            "Piedra",
+            0.016,
+            "m³"
+          ],
+          [
+            "Hierro Ø10",
+            6,
+            "m"
+          ],
+          [
+            "Hierro Ø4",
+            3,
+            "m"
+          ]
+        ]
+      },
+      "createdAt": 1792967941928,
+      "updatedAt": 1792967941928
+    },
+    {
+      "id": "01bd1fed-db16-4746-a6cf-d88cdf5dde49",
+      "userId": "8f9ea70f-989c-4421-b74c-a13e89f4b335",
+      "type": "contra",
+      "inputs": {
+        "esp": 5,
+        "ancho": 7,
+        "largo": 15
+      },
+      "label": "Contrapiso — 5×7×15 m",
+      "detail": "Vol: 525 m³ | Cem: 55125 kg",
+      "result": {
+        "vol": 525,
+        "materials": [
+          [
+            "Cemento",
+            55125,
+            "kg"
+          ],
+          [
+            "Arena",
+            236.25,
+            "m³"
+          ],
+          [
+            "Piedra",
+            472.5,
+            "m³"
+          ]
+        ]
+      },
+      "createdAt": 1792967959477,
+      "updatedAt": 1792967959477
+    }
+  ]
+}

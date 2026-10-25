@@ -1,4 +1,3 @@
-// Pruebas de integración de la API (sin dependencias): npm test
 const assert = require('assert');
 const os = require('os'), fs = require('fs'), path = require('path');
 process.env.DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'calcobra-'));

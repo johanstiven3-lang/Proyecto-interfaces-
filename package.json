@@ -1,0 +1,9 @@
+{
+  "name": "calcobra",
+  "version": "1.0.0",
+  "description": "CalcObra - Calculadora de materiales de construcción con backend REST y CRUD",
+  "main": "server.js",
+  "scripts": { "start": "node server.js", "test": "node test.js" },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}

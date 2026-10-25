@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcObra – Calculadora de Materiales de Construcción</title>
+  <meta name="description" content="Calculadora de materiales de construcción para muros, vigas, columnas, contrapisos, techos, pisos y pintura. Calcula cemento, arena, piedra, hierro y ladrillos." />
+  <meta name="keywords" content="calculadora, materiales, construcción, cemento, arena, piedra, hierro, ladrillos, muros, vigas, columnas, contrapisos, techos, pisos, pintura" />
+  <meta name="author" content="Alex Dussan" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+  <script src="calculators.js" defer></script>
+</head>
+<body>
+
+<!-- ═══════════════════ PANTALLA DE AUTENTICACIÓN ═══════════════════ -->
+<div id="auth-screen">
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      <div class="logo-box">CO</div>
+      <h1>CalcObra</h1>
+      <p>Calculadora de Materiales de Construcción</p>
+      <p>F.E.T.J.O.P. — Ingeniería de Software</p>
+    </div>
+
+    <!-- Formulario Login -->
+    <div id="login-form">
+      <div class="auth-title">Iniciar Sesión</div>
+      <div class="auth-error" id="login-error"></div>
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" id="login-user" placeholder="Nombre de usuario" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password" />
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Ingresar</button>
+      <div class="auth-switch">¿No tienes cuenta? <a onclick="showRegister()">→ Registrarse</a></div>
+    </div>
+
+    <!-- Formulario Registro -->
+    <div id="register-form" style="display:none">
+      <div class="auth-title">Crear Cuenta</div>
+      <div class="auth-error" id="register-error"></div>
+      <div class="form-group">
+        <label>Nombre de usuario</label>
+        <input type="text" id="reg-user" placeholder="Elige un nombre de usuario" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="reg-pass" placeholder="Mínimo 4 caracteres" autocomplete="new-password" />
+      </div>
+      <div class="form-group">
+        <label>Confirmar Contraseña</label>
+        <input type="password" id="reg-pass2" placeholder="Repite la contraseña" autocomplete="new-password" />
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Registrarse</button>
+      <div class="auth-switch">¿Ya tienes cuenta? <a onclick="showLogin()">→ Iniciar Sesión</a></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ PANTALLA PRINCIPAL (APP) ═══════════════════ -->
+<div id="app-screen" style="display:none">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">CO</div>
+      <span class="topbar-name">CALCOBRA</span>
+      <span class="topbar-sep">—</span>
+      <span class="topbar-sub">Materiales de Construcción</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-user">usuario / <span id="topbar-username"></span></div>
+      <button class="btn-logout" onclick="doLogout()">SALIR</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+
+    <!-- Sidebar de navegación -->
+    <nav class="sidebar">
+      <div class="sidebar-section-title">Calculadoras</div>
+
+      <div class="sidebar-item active" onclick="switchCalc(0)">
+        <div class="sidebar-num">1.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Muro de Ladrillo</div>
+          <div class="sidebar-item-sub">Cemento, arena y ladrillos</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(1)">
+        <div class="sidebar-num">2.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Viga de Hormigón</div>
+          <div class="sidebar-item-sub">Cemento, arena, piedra y hierro</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(2)">
+        <div class="sidebar-num">3.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Columnas de Hormigón</div>
+          <div class="sidebar-item-sub">Cemento, arena, piedra y hierro</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(3)">
+        <div class="sidebar-num">4.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Contrapisos</div>
+          <div class="sidebar-item-sub">Cemento, arena y piedra</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(4)">
+        <div class="sidebar-num">5.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Techo</div>
+          <div class="sidebar-item-sub">Cemento, arena, piedra e hierro</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(5)">
+        <div class="sidebar-num">6.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Pisos</div>
+          <div class="sidebar-item-sub">Superficie + 10% recortes</div>
+        </div>
+      </div>
+
+      <div class="sidebar-item" onclick="switchCalc(6)">
+        <div class="sidebar-num">7.</div>
+        <div class="sidebar-info">
+          <div class="sidebar-item-name">Pintura</div>
+          <div class="sidebar-item-sub">Litros por m² de muro</div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+
+      <!-- ── Panel 1: Muro de Ladrillo ── -->
+      <div class="calc-panel active" id="panel-0">
+        <div class="calc-header">
+          <h2><span>1.</span> Muro de Ladrillo</h2>
+          <p>Ingrese el espesor, largo y alto del muro para calcular los materiales necesarios.</p>
+        </div>
+
+        <div style="margin-bottom:6px">
+          <label style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Espesor del Muro</label>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" id="esp-20" onclick="setEspesor(20)">20 cm</button>
+          <button class="toggle-btn"        id="esp-30" onclick="setEspesor(30)">30 cm</button>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label>Largo (m)</label>
+            <input type="number" id="muro-largo" value="1" min="0.1" step="0.1" />
+          </div>
+          <div class="input-group">
+            <label>Alto (m)</label>
+            <input type="number" id="muro-alto" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+
+        <button class="btn-calc" onclick="calcMuro()">Calcular</button>
+
+        <div class="result-box" id="res-muro">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Materiales Necesarios</div>
+          </div>
+          <div class="result-summary">Superficie: <strong id="muro-sup"></strong> m²</div>
+          <table class="result-table">
+            <thead><tr><th>Material</th><th>Cantidad</th><th>Unidad</th></tr></thead>
+            <tbody id="muro-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-muro"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 2: Viga de Hormigón ── -->
+      <div class="calc-panel" id="panel-1">
+        <div class="calc-header">
+          <h2><span>2.</span> Viga de Hormigón</h2>
+          <p>Ingrese el largo de la viga. Cálculo por metro lineal de viga de hormigón armado.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Largo de la Viga (m)</label>
+            <input type="number" id="viga-largo" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcViga()">Calcular</button>
+        <div class="result-box" id="res-viga">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Materiales Necesarios</div>
+          </div>
+          <table class="result-table">
+            <thead><tr><th>Material</th><th>Cantidad</th><th>Unidad</th></tr></thead>
+            <tbody id="viga-tbody"></tbody>
+          </table>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-viga"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 3: Columnas de Hormigón ── -->
+      <div class="calc-panel" id="panel-2">
+        <div class="calc-header">
+          <h2><span>3.</span> Columnas de Hormigón</h2>
+          <p>Ingrese el largo de la columna. Cálculo por metro lineal de columna de hormigón armado.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Largo de la Columna (m)</label>
+            <input type="number" id="col-largo" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcColumna()">Calcular</button>
+        <div class="result-box" id="res-col">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Materiales Necesarios</div>
+          </div>
+          <table class="result-table">
+            <thead><tr><th>Material</th><th>Cantidad</th><th>Unidad</th></tr></thead>
+            <tbody id="col-tbody"></tbody>
+          </table>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-col"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 4: Contrapisos ── -->
+      <div class="calc-panel" id="panel-3">
+        <div class="calc-header">
+          <h2><span>4.</span> Contrapisos</h2>
+          <p>Ingrese espesor, ancho y largo del contrapiso. Cálculo por metro cúbico de hormigón.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Espesor (m)</label>
+            <input type="number" id="contra-esp" value="1" min="0.01" step="0.01" />
+          </div>
+          <div class="input-group">
+            <label>Ancho (m)</label>
+            <input type="number" id="contra-ancho" value="1" min="0.1" step="0.1" />
+          </div>
+          <div class="input-group">
+            <label>Largo (m)</label>
+            <input type="number" id="contra-largo" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcContra()">Calcular</button>
+        <div class="result-box" id="res-contra">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Materiales Necesarios</div>
+          </div>
+          <div class="result-summary">Volumen: <strong id="contra-vol"></strong> m³</div>
+          <table class="result-table">
+            <thead><tr><th>Material</th><th>Cantidad</th><th>Unidad</th></tr></thead>
+            <tbody id="contra-tbody"></tbody>
+          </table>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-contra"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 5: Techo ── -->
+      <div class="calc-panel" id="panel-4">
+        <div class="calc-header">
+          <h2><span>5.</span> Techo</h2>
+          <p>Ingrese espesor, ancho y largo del techo. Cálculo por metro cuadrado de losa.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Espesor (m)</label>
+            <input type="number" id="techo-esp" value="1" min="0.01" step="0.01" />
+          </div>
+          <div class="input-group">
+            <label>Ancho (m)</label>
+            <input type="number" id="techo-ancho" value="1" min="0.1" step="0.1" />
+          </div>
+          <div class="input-group">
+            <label>Largo (m)</label>
+            <input type="number" id="techo-largo" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcTecho()">Calcular</button>
+        <div class="result-box" id="res-techo">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Materiales Necesarios</div>
+          </div>
+          <div class="result-summary">Superficie: <strong id="techo-sup"></strong> m²</div>
+          <table class="result-table">
+            <thead><tr><th>Material</th><th>Cantidad</th><th>Unidad</th></tr></thead>
+            <tbody id="techo-tbody"></tbody>
+          </table>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-techo"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 6: Pisos ── -->
+      <div class="calc-panel" id="panel-5">
+        <div class="calc-header">
+          <h2><span>6.</span> Pisos</h2>
+          <p>Ingrese ancho y largo del paño de piso. Se añade <strong style="color:var(--yellow)">+10%</strong> extra por recortes.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <label>Ancho (m)</label>
+            <input type="number" id="piso-ancho" value="1" min="0.1" step="0.1" />
+          </div>
+          <div class="input-group">
+            <label>Largo (m)</label>
+            <input type="number" id="piso-largo" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcPiso()">Calcular</button>
+        <div class="result-box" id="res-piso">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Resultado</div>
+          </div>
+          <div>
+            <div class="floor-result-row">
+              <span class="label">Superficie neta</span>
+              <span class="value" id="piso-neta">—</span>
+            </div>
+            <div class="floor-result-row">
+              <span class="label">10% por recortes</span>
+              <span class="value" id="piso-recorte">—</span>
+            </div>
+            <div class="floor-result-row total">
+              <span class="label">Total a Comprar</span>
+              <span class="value"><span id="piso-total">—</span> <span class="unit">m²</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-piso"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+      <!-- ── Panel 7: Pintura ── -->
+      <div class="calc-panel" id="panel-6">
+        <div class="calc-header">
+          <h2><span>7.</span> Pintura</h2>
+          <p>Ingrese la superficie del muro. Rendimiento: <strong style="color:var(--yellow)">6 m² / litro</strong>.</p>
+        </div>
+        <div class="input-row">
+          <div class="input-group" style="max-width:340px">
+            <label>Superficie del Muro (m²)</label>
+            <input type="number" id="pintura-sup" value="1" min="0.1" step="0.1" />
+          </div>
+        </div>
+        <button class="btn-calc" onclick="calcPintura()">Calcular</button>
+        <div class="result-box" id="res-pintura">
+          <div class="result-header">
+            <div class="result-dot"></div>
+            <div class="result-header-title">Resultado</div>
+          </div>
+          <div class="paint-result">
+            <div>
+              <div class="label">Pintura necesaria</div>
+              <div class="sublabel" id="pintura-formula"></div>
+            </div>
+            <div class="big"><span id="pintura-litros">—</span> <span class="unit">litros</span></div>
+          </div>
+        </div>
+        <div class="history-section">
+          <div class="history-title">Historial de Cálculos</div>
+          <div id="hist-pintura"><div class="history-empty">Sin cálculos guardados.</div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<button class="help-btn" id="help-btn" style="display:none" title="Ayuda">?</button>
+
+</body>
+</html>
+

@@ -1,15 +1,7 @@
-'use strict';
-/* ══════════════════════════════════════════════════════════════
-   CalcObra — Frontend conectado al Backend REST
-   Autenticación y CRUD (Create / Read / Update / Delete)
-   de cálculos mediante la API en /api/*
-   ══════════════════════════════════════════════════════════════ */
-
 let currentUser = null;
 let authToken   = null;
 const CALC_TYPES = ['muro', 'viga', 'col', 'contra', 'techo', 'piso', 'pintura'];
 
-/* ── Inicialización ─────────────────────────────────────────── */
 window.addEventListener('DOMContentLoaded', () => {
   authToken = localStorage.getItem('calcobra_token');
   const saved = localStorage.getItem('calcobra_user');
@@ -21,7 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-/* ── Helper de API ──────────────────────────────────────────── */
 async function apiCall(method, path, body) {
   const opts = {
     method,
@@ -35,7 +26,6 @@ async function apiCall(method, path, body) {
   return data;
 }
 
-/* ── Autenticación ──────────────────────────────────────────── */
 function showRegister() {
   document.getElementById('login-form').style.display    = 'none';
   document.getElementById('register-form').style.display = 'block';
@@ -134,15 +124,12 @@ document.addEventListener('keydown', (e) => {
   const loginVisible = document.getElementById('login-form').style.display !== 'none';
   loginVisible ? doLogin() : doRegister();
 });
-
-/* ── Navegación ─────────────────────────────────────────────── */
 function switchCalc(idx) {
   cancelEdit();
   document.querySelectorAll('.calc-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
   document.querySelectorAll('.sidebar-item').forEach((n, i) => n.classList.toggle('active', i === idx));
 }
 
-/* ── Estado de edición (UPDATE) ─────────────────────────────── */
 let editingId   = null;
 let editingType = null;
 
@@ -159,30 +146,22 @@ function cancelEdit() {
   });
 }
 
-/**
- * Activa el modo edición: rellena los campos con los inputs guardados
- * y cambia el botón "Calcular" a "Actualizar".
- */
 function startEdit(id, type, inputs) {
   cancelEdit();
   editingId   = id;
   editingType = type;
 
   const idx = CALC_TYPES.indexOf(type);
-  /* Ir al panel sin cancelar (ya limpiamos antes) */
   document.querySelectorAll('.calc-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
   document.querySelectorAll('.sidebar-item').forEach((n, i) => n.classList.toggle('active', i === idx));
 
-  /* Pre-rellenar campos */
   fillInputs(type, inputs);
 
-  /* Cambiar botón del panel activo */
   const panel = document.getElementById('panel-' + idx);
   const calcBtn = panel.querySelector('.btn-calc');
   calcBtn.textContent = 'Actualizar';
   calcBtn.classList.add('btn-updating');
 
-  /* Barra de aviso de edición */
   let bar = document.getElementById('edit-bar');
   if (!bar) {
     bar = document.createElement('div');
@@ -196,7 +175,6 @@ function startEdit(id, type, inputs) {
     bar.style.display = 'flex';
     panel.insertBefore(bar, panel.firstChild);
   }
-  /* Scroll suave al inicio del panel */
   document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -227,8 +205,6 @@ function fillInputs(type, inputs) {
     case 'pintura': set('pintura-sup', inputs.sup); break;
   }
 }
-
-/* ── CRUD: guardar (Create o Update) ───────────────────────── */
 async function saveCalc(type, inputs) {
   if (editingId) {
     /* UPDATE: recalcular con nuevos datos */
@@ -243,7 +219,6 @@ async function saveCalc(type, inputs) {
   return data;
 }
 
-/* ── CRUD: eliminar ─────────────────────────────────────────── */
 async function deleteCalc(id, type) {
   if (!confirm('¿Eliminar este cálculo del historial?')) return;
   try {
@@ -254,7 +229,6 @@ async function deleteCalc(id, type) {
   }
 }
 
-/* ── Historial (READ) ───────────────────────────────────────── */
 async function loadAllHistory() {
   for (const type of CALC_TYPES) {
     renderHistory(type); /* paralelo sin await para cargar más rápido */
@@ -299,7 +273,6 @@ async function renderHistory(type) {
   }
 }
 
-/* ── Utilidades ─────────────────────────────────────────────── */
 function setBtnLoading(btn, loading, label) {
   if (!btn) return;
   btn.disabled    = loading;
@@ -316,7 +289,6 @@ function escHtml(s) {
 }
 
 function escAttr(s) {
-  /* Para atributos onclick que ya están entre comillas simples */
   return String(s).replace(/'/g, '\\\'');
 }
 

@@ -1,11 +1,3 @@
-'use strict';
-/**
- * CalcObra — Backend REST (Node.js >= 18, sin dependencias externas).
- *  - Autenticación: contraseñas con scrypt + salt, token firmado HMAC-SHA256 (7 días).
- *  - Persistencia: archivo JSON (data/db.json) con escritura atómica.
- *  - CRUD de cálculos por usuario + gestión de cuenta.
- *  - Sirve el frontend desde /public.
- */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -20,7 +12,6 @@ const TOKEN_TTL = 7 * 24 * 3600 * 1000;
 const MAX_PER_TYPE = 20;
 const TYPES = ['muro', 'viga', 'col', 'contra', 'techo', 'piso', 'pintura'];
 
-/* ---------- Persistencia ---------- */
 fs.mkdirSync(DATA_DIR, { recursive: true });
 let db = { users: [], calculations: [] };
 if (fs.existsSync(DB_FILE)) db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
@@ -40,7 +31,6 @@ if (!SECRET) {
   }
 }
 
-/* ---------- Seguridad: contraseñas y tokens ---------- */
 function hashPw(pw) {
   const salt = crypto.randomBytes(16);
   return salt.toString('hex') + ':' + crypto.scryptSync(pw, salt, 64).toString('hex');
@@ -67,7 +57,6 @@ function verify(token) {
   } catch { return null; }
 }
 
-/* ---------- Lógica de cálculo (rendimientos) ---------- */
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status = status; }
 }
@@ -162,7 +151,6 @@ function calculate(type, i = {}) {
   }
 }
 
-/* ---------- Utilidades HTTP ---------- */
 function send(res, status, obj) {
   const body = JSON.stringify(obj);
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
@@ -203,7 +191,6 @@ function validCreds(username, password) {
   if (password.length > 128) throw new HttpError(400, 'La contraseña es demasiado larga.');
 }
 
-/* Límite simple contra fuerza bruta: 10 intentos fallidos / 10 min por IP */
 const fails = new Map();
 function checkRate(ip) {
   const f = fails.get(ip);
@@ -215,7 +202,6 @@ function noteFail(ip) {
   else f.n++;
 }
 
-/* ---------- Rutas API ---------- */
 async function api(req, res, url) {
   const method = req.method, p = url.pathname, ip = req.socket.remoteAddress;
 
@@ -244,7 +230,7 @@ async function api(req, res, url) {
     return send(res, 200, session(user));
   }
 
-  const user = authUser(req); // todo lo siguiente requiere sesión
+  const user = authUser(req);
 
   if (p === '/api/me') {
     if (method === 'GET') return send(res, 200, { user: publicUser(user) });
@@ -313,7 +299,6 @@ async function api(req, res, url) {
   throw new HttpError(404, 'Ruta no encontrada.');
 }
 
-/* ---------- Archivos estáticos ---------- */
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' };
 function serveStatic(req, res, url) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, { error: 'Método no permitido.' });
@@ -328,8 +313,6 @@ function serveStatic(req, res, url) {
     res.end(req.method === 'HEAD' ? undefined : data);
   });
 }
-
-/* ---------- Servidor ---------- */
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   try {
